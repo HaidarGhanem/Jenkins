@@ -13,7 +13,7 @@ services:
     build: .
     image: profile:${IMAGE_TAG:-latest}
     ports:
-      - 8081:8081
+      - 8081:3000
     environment: 
       - MONGO_URI=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongodb:27017/user-account?authSource=admin
     depends_on:
