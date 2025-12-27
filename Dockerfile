@@ -8,4 +8,4 @@ RUN npm install --omit=dev
 
 COPY . .
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "app.js" ]
