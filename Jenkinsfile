@@ -43,7 +43,7 @@ pipeline {
             echo "Successfully ${NEW_VERSION}"
         }
         failure {
-
+            echo ""
         }
     }
 }
