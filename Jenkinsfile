@@ -37,7 +37,7 @@ pipeline {
     post {
         always {
             echo "Basically ${NEW_VERSION}"
-            echo BRANCH_NAME
+            echo "Branch: ${env.BRANCH_NAME ?: 'Unknown Branch'}"
         }
     }
 }
