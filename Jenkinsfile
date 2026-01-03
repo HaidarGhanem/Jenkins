@@ -1,4 +1,5 @@
 // CODE_CHANGES = getGitChanges()
+def gv
 pipeline {
     agent any
     environment {
@@ -18,6 +19,9 @@ pipeline {
             //         BRANCH_NAME == 'dev' && CODE_CHANGES == true
             //     }
             // }
+            script {
+                gv = load "script.groovy"
+            }
             steps {
                 echo 'building...'
             }
@@ -40,14 +44,8 @@ pipeline {
         }
 
         stage("deploy") {
-            steps {
-                echo 'deploying....'
-                // withCredentials([
-                //     usernamePassword(credentialsId: 'github-jenkins', usernameVariable: 'USER', passwordVariable: 'PWD')
-                // ]){
-                //     echo "${USER}"
-                // }
-                echo "version: ${params.VERSION}"
+            script {
+                gv.deployApp()
             }
         }
     }
