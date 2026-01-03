@@ -19,11 +19,12 @@ pipeline {
             //         BRANCH_NAME == 'dev' && CODE_CHANGES == true
             //     }
             // }
-            script {
-                gv = load "script.groovy"
-            }
+            
             steps {
                 echo 'building...'
+                script {
+                    gv = load "script.groovy"
+                }
             }
         }
 
@@ -44,8 +45,10 @@ pipeline {
         }
 
         stage("deploy") {
-            script {
-                gv.deployApp()
+            steps {
+                script {
+                    gv.deployApp()
+                }
             }
         }
     }
