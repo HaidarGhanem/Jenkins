@@ -30,14 +30,13 @@ pipeline {
         stage("deploy") {
             steps {
                 echo 'deploying....'
+                withCredentials([
+                    usernamePassword(credentials: 'github-jenkins', usernameVariable: USER, passwordVariable: PWD)
+                ]){
+                    echo "${USER}"
+                }
             }
         }
     }
 
-    post {
-        always {
-            echo "Basically ${NEW_VERSION}"
-            echo "Branch: ${env.BRANCH_NAME ?: 'Unknown Branch'}"
-        }
-    }
 }
