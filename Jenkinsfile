@@ -17,11 +17,11 @@ pipeline {
         }
 
         stage("test") {
-            when {
-                expression {
-                    BRANCH_NAME == 'dev' | 'main'
-                }
-            }
+            // when {
+            //     expression {
+            //         BRANCH_NAME == 'dev' | 'main'
+            //     }
+            // }
             steps {
                 echo 'testing...'
             }
@@ -38,12 +38,6 @@ pipeline {
         always {
             echo "Basically ${NEW_VERSION}"
             echo BRANCH_NAME
-        }
-        success {
-            echo "Successfully ${NEW_VERSION}"
-        }
-        failure {
-            echo ""
         }
     }
 }
