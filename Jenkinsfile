@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo 'deploying....'
                 withCredentials([
-                    usernamePassword(credentials: 'github-jenkins', usernameVariable: 'USER', passwordVariable: 'PWD')
+                    usernamePassword(credentialsId: 'github-jenkins', usernameVariable: 'USER', passwordVariable: 'PWD')
                 ]){
                     echo "${USER}"
                 }
