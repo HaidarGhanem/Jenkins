@@ -62,10 +62,23 @@
 //     }
 
 // }
+@Library('jenkins-shared-library')_
 pipeline {
     agent any 
     stages {
         stage("test"){
+             when {
+                        expression {
+                            BRANCH_NAME == 'test'
+                        }
+            }
+            steps{
+                script{
+                    npm()
+                }
+            }
+        }
+        stage("build"){
              when {
                         expression {
                             BRANCH_NAME == 'dev'
