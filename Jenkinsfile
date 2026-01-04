@@ -66,24 +66,24 @@ pipeline {
     agent any 
     stages {
         stage("test"){
-            steps{
-                when {
+             when {
                         expression {
                             BRANCH_NAME == 'dev'
                         }
-                    }
+            }
+            steps{
                 script{
                     echo "testing application ..."
                 }
             }
         }
         stage("deploy"){
-            steps{
-                when {
+            when {
                         expression {
                             BRANCH_NAME == 'main'
                         }
-                    }
+            }
+            steps{
                 script{
                     echo "deploying application ..."
                 }
