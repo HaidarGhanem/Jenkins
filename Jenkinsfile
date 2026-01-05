@@ -104,3 +104,5 @@ pipeline {
         }
     }
 }
+
+// testing GITHUB trigger auto
