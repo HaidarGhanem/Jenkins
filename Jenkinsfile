@@ -76,6 +76,7 @@ pipeline {
                 script{
                     npm()
                     echo "new========new========new=======new"
+                    echo "new========new========new=======new"
                 }
             }
         }
