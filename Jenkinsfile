@@ -79,7 +79,7 @@ pipeline {
                         sh "ls"
                     }
             }
-        }
+        }}
         stage("build"){
              when {
                         expression {
