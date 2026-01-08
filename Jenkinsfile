@@ -78,7 +78,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'my-vps', 
                                    keyFileVariable: 'SSH_KEY', 
                                    usernameVariable: 'VM_USER')]) {
-                        sh "ssh -i ${SSH_KEY} ${VM_USER}@${VM_IP} 'docker ps'"
+                        sh "ssh -i ${SSH_KEY} ${VM_USER}@127.0.0.1 'docker ps'"
                     }
                 }
             }
