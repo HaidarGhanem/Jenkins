@@ -1,67 +1,3 @@
-// CODE_CHANGES = getGitChanges()
-// def gv
-// pipeline {
-//     agent any
-//     environment {
-//         NEW_VERSION = '13.8.5'
-//     }
-    // tools {
-    //     maven "maven-3.9"
-    // }
-    // parameters {
-    //     choice(name: 'VERSION', choices: ['1.1.0','2.0.0','3.0.1'], description:'')
-    //     booleanParam(name: 'executeTest', defaultValue: true, description:'')
-    // }
-    // stages {
-    //     stage("build") {
-            // when {
-            //     expression {
-            //         BRANCH_NAME == 'dev' && CODE_CHANGES == true
-            //     }
-            // }
-            
-        //     steps {
-        //         echo 'building...'
-        //         script {
-        //             gv = load "script.groovy"
-        //         }
-        //     }
-        // }
-
-        // stage("test") {
-            // when {
-            //     expression {
-            //         BRANCH_NAME == 'dev' | 'main'
-            //     }
-            // }
-//             when {
-//                 expression {
-//                     params.executeTest
-//                 }
-//             }
-//             steps {
-//                 echo 'testing...'
-//             }
-//         }
-
-//         stage("deploy") {
-//             input {
-//                 message "select env to deploy"
-//                 ok "done"
-//                 parameters{
-//                     choice(name: 'ENV', choices: ['dev','staging','prod'], description:'')
-//                 }
-//             }
-//             steps {
-//                 script {
-//                     gv.deployApp()
-//                     echo "Deploying to ${ENV}"
-//                 }
-//             }
-//         }
-//     }
-
-// }
 @Library('jenkins-shared-library')_
 pipeline {
     agent any 
@@ -75,9 +11,11 @@ pipeline {
             steps{
                 script{
                     npm()
-                }
+                    sshagent(['my-vps']) {
+                        sh 'ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 "docker ps"'
+                    }
             }
-        }
+        }}
         stage("build"){
              when {
                         expression {
