@@ -75,12 +75,9 @@ pipeline {
             steps{
                 script{
                     npm()
-                    withCredentials([sshUserPrivateKey(credentialsId: 'my-vps', 
-                                   keyFileVariable: 'SSH_KEY', 
-                                   usernameVariable: 'VM_USER')]) {
-                        sh "ssh -i ${SSH_KEY} ${VM_USER}@172.17.0.1 'docker ps'"
+                    sshagent(['my-vps']) {
+                        sh "ls"
                     }
-                }
             }
         }
         stage("build"){
