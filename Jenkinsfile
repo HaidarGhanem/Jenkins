@@ -41,7 +41,7 @@ pipeline {
                 script{
                     echo "deploying application ..."
 
-                    def dockerComposeCmd = 'cd /home/haidar/app && export IMAGE_TAG=${env.BUILD_NUMBER} && docker compose up -d'
+                    def dockerComposeCmd = "cd /home/haidar/app && export IMAGE_TAG=${env.BUILD_NUMBER} && docker compose up -d"
                     sshagent(['my-vps']) {
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yml haidar@172.17.0.1:/home/haidar/app"
                         sh "ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 ${dockerComposeCmd}"
