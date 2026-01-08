@@ -4,7 +4,7 @@ pipeline {
     environment {
         USER="haidarghanem"
         IMAGE="profile"
-        DOCKER_ID="docker-hub-id"
+        DOCKER_ID="docker-hub"
     }
     stages {
         stage("test"){
