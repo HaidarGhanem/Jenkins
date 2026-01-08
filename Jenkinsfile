@@ -4,7 +4,7 @@ pipeline {
     environment {
         USER="haidarghanem"
         IMAGE="profile"
-        DOCKER_ID="ocker-hub-id"
+        DOCKER_ID="docker-hub"
     }
     stages {
         stage("test"){
@@ -41,7 +41,7 @@ pipeline {
                 script{
                     echo "deploying application ..."
 
-                    def dockerComposeCmd = "docker-compose -f docker-compose.yml up -d"
+                    def dockerComposeCmd = "export IMAGE_TAG=${env.BUILD_NUMBER} && docker-compose -f docker-compose.yml up -d"
                     sshagent(['my-vps']) {
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yml haidar@172.17.0.1:/home/haidar"
                         sh "ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 ${dockerComposeCmd}"
