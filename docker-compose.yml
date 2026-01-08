@@ -10,8 +10,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
     
   backend:
-    build: .
-    image: profile:${IMAGE_TAG:-latest}
+    image: haidarghanem/profile:${IMAGE_TAG:-latest}
     ports:
       - 8081:3000
     environment: 
