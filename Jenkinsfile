@@ -1,6 +1,11 @@
 @Library('jenkins-shared-library')_
 pipeline {
     agent any 
+    environment {
+        USER="haidarghanem"
+        IMAGE="profile"
+        DOCKER_ID="ocker-hub-id"
+    }
     stages {
         stage("test"){
              when {
@@ -11,12 +16,9 @@ pipeline {
             steps{
                 script{
                     npm()
-                    sshagent(['my-vps']) {
-                        sh 'ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 "docker ps"'
-                    }
             }
         }}
-        stage("build"){
+        stage("build & push"){
              when {
                         expression {
                             BRANCH_NAME == 'dev'
@@ -24,7 +26,8 @@ pipeline {
             }
             steps{
                 script{
-                    echo "testing application ..."
+                    buildDockerImage(user: "${USER}", image: "${IMAGE}")
+                    pushDockerImage(dockerId: "${DOCKER_ID}", user: "${USER}", image: "${IMAGE}")
                 }
             }
         }
@@ -37,6 +40,12 @@ pipeline {
             steps{
                 script{
                     echo "deploying application ..."
+
+                    def dockerComposeCmd = "docker-compose -f docker-compose.yml up -d"
+                    sshagent(['my-vps']) {
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml haidar@172.17.0.1:/home/haidar"
+                        sh "ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 ${dockerComposeCmd}"
+                    }
                 }
             }
         }
