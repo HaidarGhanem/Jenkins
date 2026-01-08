@@ -76,7 +76,8 @@ pipeline {
                 script{
                     npm()
                     sshagent(['my-vps']) {
-                        sh "ls"
+                        sh 'ssh -o StrictHostKeyChecking=no haidar@172.17.0.1'
+                        sh 'ls'
                     }
             }
         }}
