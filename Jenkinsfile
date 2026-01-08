@@ -11,6 +11,7 @@ pipeline {
             steps{
                 script{
                     npm()
+                    // used the VPS credentials within Jenkins Credentials
                     sshagent(['my-vps']) {
                         sh 'ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 "docker ps"'
                     }
