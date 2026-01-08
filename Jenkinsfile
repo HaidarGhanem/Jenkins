@@ -75,12 +75,11 @@ pipeline {
             steps{
                 script{
                     npm()
-                    echo "new========new========new=======new"
-                    echo "new========new========new=======new"
-                    echo "new========new========new=======new"
-                    echo "new========new========new=======new"
-                    echo "new========new========new=======new"
-                    echo "new========new========new=======new"
+                    withCredentials([sshUserPrivateKey(credentialsId: 'my-vps', 
+                                   keyFileVariable: 'SSH_KEY', 
+                                   usernameVariable: 'VM_USER')]) {
+                        sh "ssh -i ${SSH_KEY} ${VM_USER}@${VM_IP} 'docker ps'"
+                    }
                 }
             }
         }
