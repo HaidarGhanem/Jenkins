@@ -3,9 +3,9 @@ pipeline {
     agent any 
     environment {
         USER="haidarghanem"
-        IMAGE="profile"
+        IMAGE="profile:2.0"
         DOCKER_ID="docker-hub"
-        IMAGE_TAG = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        // IMAGE_TAG = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
     }
     stages {
         stage("test"){
@@ -41,10 +41,10 @@ pipeline {
             steps{
                 script{
                     echo "deploying application ..."
-
+                    def ec2Instance = "haidar@172.17.0.1"
                     sshagent(['my-vps']) {
-                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml haidar@172.17.0.1:/home/haidar/app"
-                        sh "ssh -o StrictHostKeyChecking=no haidar@172.17.0.1 'cd /home/haidar/app && docker-compose up -d'"
+                        sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${ec2Instance}:/home/haidar/app"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} 'cd /home/haidar/app && export IMAGE_NAME=${IMAGE} && docker-compose up -d'"
                     }
                 }
             }
