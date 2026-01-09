@@ -3,7 +3,7 @@ pipeline {
     agent any 
     environment {
         USER="haidarghanem"
-        IMAGE="profile:2.0"
+        IMAGE="profile:2.3"
         DOCKER_ID="docker-hub"
         // IMAGE_TAG = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
     }
