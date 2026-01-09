@@ -44,7 +44,7 @@ pipeline {
                     def ec2Instance = "haidar@172.17.0.1"
                     sshagent(['my-vps']) {
                         sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${ec2Instance}:/home/haidar/app"
-                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} 'cd /home/haidar/app && export IMAGE_NAME=${IMAGE} && docker-compose up -d'"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} 'cd /home/haidar/app && export IMAGE_NAME=${IMAGE} && docker-compose down && docker-compose up -d'"
                     }
                 }
             }
